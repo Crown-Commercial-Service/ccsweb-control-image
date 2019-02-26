@@ -25,12 +25,29 @@
     "security_group_id": "{{user `aws_security_group`}}",
     "ssh_keypair_name": "{{user `aws_keypair_name`}}",
     "ssh_private_key_file": "{{user `aws_keypair_private_file`}}",
-    "associate_public_ip_address": true
+    "associate_public_ip_address": true,
+    "iam_instance_profile": "{{user `aws_iam_instance_profile`}}"
   }],
   "provisioners": [
     {
+      "type": "file",
+      "source": "./files/s3_db_backup.sh",
+      "destination": "~/s3_db_backup.sh",
+      "direction": "upload"
+    },
+    {
+      "type": "file",
+      "source": "./files/s3_db_backup_all.sh",
+      "destination": "~/s3_db_backup_all.sh",
+      "direction": "upload"
+    },
+    {
       "type": "shell",
-      "script": "build.sh"
+      "script": "build.sh",
+      "environment_vars": [
+        "SECRETS_BUCKET_NAME={{user `aws_secrets_bucket_name`}}",
+        "AWS_REGION={{user `aws_region`}}"
+      ]
     }
   ]
 }
