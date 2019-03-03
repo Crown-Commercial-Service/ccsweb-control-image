@@ -58,4 +58,5 @@ aws --region "$AWS_REGION" s3 sync s3://$SECRETS_BUCKET_NAME/control/cron ./
 
 # Configure cron tasks
 sudo chown root:root ~ec2-user/*.cron
+sudo chmod 644 ~ec2-user/*.cron
 sudo mv -f ~ec2-user/*.cron /etc/cron.d/
