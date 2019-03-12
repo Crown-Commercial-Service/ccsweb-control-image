@@ -31,6 +31,18 @@
   "provisioners": [
     {
       "type": "file",
+      "source": "./files/awscli.conf",
+      "destination": "~/awscli.conf",
+      "direction": "upload"
+    },
+    {
+      "type": "file",
+      "source": "./files/awslogs.conf",
+      "destination": "~/awslogs.conf",
+      "direction": "upload"
+    },
+    {
+      "type": "file",
       "source": "./files/s3_db_backup.sh",
       "destination": "~/s3_db_backup.sh",
       "direction": "upload"

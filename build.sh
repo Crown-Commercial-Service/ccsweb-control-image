@@ -60,3 +60,21 @@ aws --region "$AWS_REGION" s3 sync s3://$SECRETS_BUCKET_NAME/control/cron ./
 sudo chown root:root ~ec2-user/*.cron
 sudo chmod 644 ~ec2-user/*.cron
 sudo mv -f ~ec2-user/*.cron /etc/cron.d/
+
+# Setup AWS CW logging
+sudo yum install -y awslogs
+
+sudo chown root:root \
+    ~ec2-user/awscli.conf \
+    ~ec2-user/awslogs.conf
+
+sudo chmod 640 \
+    ~ec2-user/awscli.conf \
+    ~ec2-user/awslogs.conf
+
+sudo mv -f \
+    ~ec2-user/awscli.conf \
+    ~ec2-user/awslogs.conf \
+    /etc/awslogs/
+
+sudo systemctl enable awslogsd
